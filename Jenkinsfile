@@ -42,8 +42,6 @@ pipeline
             {
                 script 
                 {
-
-                def NexusRepo = Version.endsWith("SNAPSHOT") ? "VinaysDevOpsLab-SNAPSHOT" : "VinaysDevOpsLab-RELEASE"
                 
                 nexusArtifactUploader artifacts: 
                 [[artifactId: 'springboot-maven-course-micro-svc', 
