@@ -1,6 +1,6 @@
 pipeline 
 {
-      //Directives
+      /*Directives*/
       //agent any 
       agent
       {
@@ -49,17 +49,17 @@ pipeline
                 {
                 
                     nexusArtifactUploader artifacts: 
-                    [[artifactId: '${ArtifactId}', 
+                    [[artifactId: "${ArtifactId}", 
                     classifier: '',
-                    file: 'target/${ArtifactId}-${Version}.jar', 
+                    file: "target/${ArtifactId}-${Version}.jar", 
                     type: 'jar']], 
                     credentialsId: 'Nexus-credential', 
-                    groupId: '${GroupId}', 
+                    groupId: "${GroupId}", 
                     nexusUrl: '192.168.1.211:8081/', 
                     nexusVersion: 'nexus3', 
                     protocol: 'http', 
-                    repository: '${NexusRepo}', 
-                    version: '${Version}'
+                    repository: "${NexusRepo}", 
+                    version: "${Version}"
              }
             }
         }
