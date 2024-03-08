@@ -1,21 +1,38 @@
-pipeline{
-    tools { 
-        maven 'maven-3.8.1' 
-       
-    }
-    agent {
-        label 'master'
-        }
-        stages{
-            stage('git stage'){
-                steps{
-                    git branch: 'main', url: 'https://github.com/cloudtechmasters/springboot-maven-course-micro-svc.git'
-                }
+pipeline 
+{
+      //agent any 
+      agent
+      {
+          label 'node2'
+      }
+      environment 
+      {
+          registry = 'https://hub.docker.com/repositories/1youssefbaroudi1'
+          registryCredential = 'jenkins-dockerhub-login-credentials'
+          dockerimage = ''
+      }
+      stages
+      {
+          stage("Checkout the project") 
+          {
+            steps
+            {
+                git branch: 'main', url: 'https://github.com/youssef-baroudi/springboot-maven-nexus-deploy.git'
+            } 
+          }
+          stage("Build the package")
+          {
+              steps 
+              {
+                  sh 'mvn clean package'
+              }
+          }
+          stage ('Test')
+          {
+            steps 
+            {
+                echo ' testing......'
             }
-            stage('build maven project '){
-                steps{
-                   sh 'mvn clean package'
-                }
-            }
-        }
+           }
+      }
 }
