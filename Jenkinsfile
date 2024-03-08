@@ -51,7 +51,7 @@ pipeline
                 nexusArtifactUploader artifacts: 
                 [[artifactId: "${ArtifactId}", 
                 classifier: '', 
-                file: "target/${ArtifactId}-${Version}.jar", 
+                file: 'target/springboot-maven-course-micro-svc-0.0.4-SNAPSHOT.jar', 
                 type: 'jar']], 
                 credentialsId: 'Nexus-credential', 
                 groupId: "${GroupId}", 
