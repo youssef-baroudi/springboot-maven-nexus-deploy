@@ -33,6 +33,32 @@ pipeline
             {
                 echo ' testing......'
             }
-           }
+          }
+
+        // Stage3 : Publish the artifacts to Nexus
+        stage ('Publish to Nexus')
+        {
+            steps 
+            {
+                script 
+                {
+
+                def NexusRepo = Version.endsWith("SNAPSHOT") ? "VinaysDevOpsLab-SNAPSHOT" : "VinaysDevOpsLab-RELEASE"
+                
+                nexusArtifactUploader artifacts: 
+                [[artifactId: 'springboot-maven-course-micro-svc', 
+                classifier: '',
+                file: 'target/springboot-maven-course-micro-svc-0.0.4-SNAPSHOT.jar', 
+                type: 'jar']], 
+                credentialsId: 'Nexus-credential', 
+                groupId: 'com.cloudtechmasters', 
+                nexusUrl: '192.168.1.211:8081/', 
+                nexusVersion: 'nexus3', 
+                protocol: 'http', 
+                repository: 'springboot-maven-nexus-SNAPSHOT', 
+                version: '0.0.4-SNAPSHOT'
+             }
+            }
+        }
       }
 }
