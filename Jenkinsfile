@@ -52,27 +52,28 @@ pipeline
                 }
 
         // Stage3 : Publish the artifacts to Nexus
-        /*stage ('Publish to Nexus')
+        stage ('Publish to Nexus')
         {
             steps 
             {
                 script 
                 {
-                
-                nexusArtifactUploader artifacts: 
-                [[artifactId: "${ArtifactId}", 
-                classifier: '', 
-                file: 'target/springboot-maven-course-micro-svc-0.0.4-SNAPSHOT.jar', 
-                type: 'jar']], 
-                credentialsId: 'Nexus-credential', 
-                groupId: "${GroupId}", 
-                nexusUrl: '192.168.1.211:8081', 
-                nexusVersion: 'nexus3', 
-                protocol: 'http', 
-                repository: "${NexusRepo}", 
-                version: "${Version}"
+                    def NexusRepo = Version.endsWith("SNAPSHOT") ? "springboot-maven-nexus-SNAPSHOT" : "springboot-maven-nexus-RELEASE"
+
+                    nexusArtifactUploader artifacts: 
+                    [[artifactId: "${ArtifactId}", 
+                    classifier: '', 
+                    file: "target/${ArtifactId}-${Version}.jar", 
+                    type: 'jar']], 
+                    credentialsId: 'Nexus-credential', 
+                    groupId: "${GroupId}", 
+                    nexusUrl: '192.168.1.211:8081', 
+                    nexusVersion: 'nexus3', 
+                    protocol: 'http', 
+                    repository: "${NexusRepo}", 
+                    version: "${Version}"
              }
             }
-        }*/
+        }
       }
 }
