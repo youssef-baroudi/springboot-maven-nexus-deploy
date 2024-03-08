@@ -49,17 +49,17 @@ pipeline
                 {
                 
                 nexusArtifactUploader artifacts: 
-                [[artifactId: 'springboot-maven-course-micro-svc', 
-                classifier: '',
-                file: 'target/springboot-maven-course-micro-svc-0.0.4-SNAPSHOT.jar', 
+                [[artifactId: "${ArtifactId}", 
+                classifier: '', 
+                file: "target/${ArtifactId}-${Version}.jar", 
                 type: 'jar']], 
                 credentialsId: 'Nexus-credential', 
-                groupId: 'com.cloudtechmasters', 
-                nexusUrl: '192.168.1.211:8081/', 
+                groupId: "${GroupId}", 
+                nexusUrl: '192.168.1.211:8081', 
                 nexusVersion: 'nexus3', 
                 protocol: 'http', 
-                repository: 'springboot-maven-nexus-SNAPSHOT', 
-                version: '0.0.4-SNAPSHOT'
+                repository: "${NexusRepo}", 
+                version: "${Version}"
              }
             }
         }
