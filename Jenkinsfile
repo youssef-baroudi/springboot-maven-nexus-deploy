@@ -32,12 +32,26 @@ pipeline
                   sh 'mvn clean package'
               }
           }
-          stage ('Test')
+          stage("Sonar Quality Check")
           {
-            steps 
-            {
-                echo ' testing......'
-            }
+          steps
+              {
+                  script
+                      {
+                          withSonarQubeEnv(installationName: '10.4.0-community', credentialsId: 'sonarqube-jenkins-token') 
+                          {
+                              sh 'mvn sonar:sonar'
+                          }
+                          timeout(time: 1, unit: 'HOURS') 
+                          {
+                                  def qg = waitForQualityGate()
+                                  if (qg.status != 'OK') 
+                                      {
+                                          error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                                      }
+                          }
+                      }
+                  }
           }
         
         // Print some information
@@ -92,7 +106,7 @@ pipeline
                         sshTransfer
                         (
                                 cleanRemote:false,
-                                execCommand: 'ansible-playbook /opt/playbooks/downloadanddeploy_as_tomcat_user.yaml -i /opt/playbooks/hosts --extra-vars "ansible_sudo_pass=admin123"',
+                                execCommand: 'ansible-playbook /opt/playbooks/downloadanddeploy_as_tomcat_user.yaml -i /opt/playbooks/hosts ',
                                 execTimeout: 120000
                         )
                     ], 
