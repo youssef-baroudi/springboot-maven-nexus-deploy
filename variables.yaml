@@ -1,5 +1,5 @@
 ---
 destination_location: "/opt/apache-tomcat-10.1.19/webapps/"
-buildartifact_location: "/home/ubuntu/springboot-maven-nexus-RELEASE.jar"
+buildartifact_location: "/home/ubuntu/latest.jar"
 changedir_location: "/home/ubuntu"
 ...

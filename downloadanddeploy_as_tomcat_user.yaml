@@ -7,7 +7,7 @@
 
   tasks:
      - name: download the jar file
-       shell: 'curl -u admin:admin123 -L "http://192.168.1.211:8081/service/rest/v1/search/assets/download?sort=version&repository=springboot-maven-nexus-RELEASE&maven.groupId=com.cloudtechmasters&maven.artifactId=springboot-maven-course-micro-svc&maven.extension=jar" -H "accept: application/json" --output /home/ubuntu/springboot-maven-nexus-RELEASE.jar'
+       shell: 'curl -u admin:admin123 -L "http://192.168.1.211:8081/service/rest/v1/search/assets/download?sort=version&repository=springboot-maven-nexus-RELEASE&maven.groupId=com.cloudtechmasters&maven.artifactId=springboot-maven-course-micro-svc&maven.extension=jar" -H "accept: application/json" --output /home/ubuntu/latest.jar'
        args:
           chdir: "{{ changedir_location }}"
 
