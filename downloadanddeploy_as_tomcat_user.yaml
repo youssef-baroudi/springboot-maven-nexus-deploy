@@ -1,11 +1,5 @@
 ---
 
-# You can also use the 'cmd' parameter instead of free form format.
-- name: This command will change the working directory to somedir/
-  ansible.builtin.shell:
-    cmd: ls -l
-    chdir: ./
-
 - name: This play is to download the latest jar file from nexus
   hosts: localhost
   become: true
@@ -18,20 +12,20 @@
        args:
           chdir: "{{ changedir_location }}"
 
-#- name: Deploy the latest jar file to apache tomcat
-#  hosts: tomcat
-#  become: true
-#  vars_files:
-#   - variables.yaml
-#
-#  tasks:
-#      - copy:
-#          src: "{{ item }}"
-#          dest: "{{ destination_location }}"
-#          owner: tomcat
-#          group: tomcat
-#          mode: u+rwx,g+rwx,o-rwx
-#        with_fileglob:
-#           - "{{ buildartifact_location }}"
+- name: Deploy the latest jar file to apache tomcat
+  hosts: tomcat
+  become: true
+  vars_files:
+   - variables.yaml
+
+  tasks:
+      - copy:
+          src: "{{ item }}"
+          dest: "{{ destination_location }}"
+          owner: tomcat
+          group: tomcat
+          mode: u+rwx,g+rwx,o-rwx
+        with_fileglob:
+           - "{{ buildartifact_location }}"
 
 ...

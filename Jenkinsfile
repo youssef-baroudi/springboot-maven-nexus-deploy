@@ -91,16 +91,24 @@ pipeline
                     [
                         sshTransfer
                         (
-                                cleanRemote:false,
-                                execCommand: 'ansible-playbook downloadanddeploy_as_tomcat_user.yaml -i /opt/playbooks/hosts --extra-vars "ansible_sudo_pass=admin123"',
-                                execTimeout: 120000
+                            cleanRemote:false,
+                            execCommand: 'ansible-playbook downloadanddeploy_as_tomcat_user.yaml -i /opt/playbooks/hosts --extra-vars "ansible_sudo_pass=admin123"',
+                            execTimeout: 120000, 
+                            excludes: '',
+                            flatten: false,
+                            makeEmptyDirs: false,
+                            noDefaultExcludes: false,
+                            patternSeparator: '[, ]+',
+                            remoteDirectory: '',
+                            remoteDirectorySDF: false,
+                            removePrefix: '', sourceFiles: ''
                         )
                     ], 
                     usePromotionTimestamp: false, 
                     useWorkspaceInPromotion: false, 
                     verbose: false
                 )
-                    ])
+            ])
             
             }
         }
