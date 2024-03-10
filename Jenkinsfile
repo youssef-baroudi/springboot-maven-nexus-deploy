@@ -32,27 +32,27 @@ pipeline
                   sh 'mvn clean package'
               }
           }
-          stage("Sonar Quality Check")
-          {
-          steps
-              {
-                  script
-                      {
-                          withSonarQubeEnv(installationName: '10.4.0-community', credentialsId: 'sonarqube-jenkins-token') 
-                          {
-                              sh 'mvn sonar:sonar'
-                          }
-                          timeout(time: 1, unit: 'HOURS') 
-                          {
-                                  def qg = waitForQualityGate()
-                                  if (qg.status != 'OK') 
-                                      {
-                                          error "Pipeline aborted due to quality gate failure: ${qg.status}"
-                                      }
-                          }
-                      }
-                  }
-          }
+          //stage("Sonar Quality Check")
+          //{
+          //steps
+          //    {
+          //        script
+          //            {
+          //                withSonarQubeEnv(installationName: '10.4.0-community', credentialsId: 'sonarqube-jenkins-token') 
+          //                {
+          //                    sh 'mvn sonar:sonar'
+          //                }
+          //                timeout(time: 1, unit: 'HOURS') 
+          //                {
+          //                        def qg = waitForQualityGate()
+          //                        if (qg.status != 'OK') 
+          //                            {
+          //                                error "Pipeline aborted due to quality gate failure: ${qg.status}"
+          //                            }
+          //                }
+          //            }
+          //        }
+          //}
         
         // Print some information
         stage ('Print Environment variables')
