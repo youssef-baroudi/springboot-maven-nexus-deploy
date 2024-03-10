@@ -92,7 +92,7 @@ pipeline
                         sshTransfer
                         (
                                 cleanRemote:false,
-                                execCommand: 'ansible-playbook downloadanddeploy_as_tomcat_user.yaml -i /opt/playbooks/hosts',
+                                execCommand: 'ansible-playbook downloadanddeploy_as_tomcat_user.yaml -i /opt/playbooks/hosts --extra-vars "ansible_sudo_pass=admin123"',
                                 execTimeout: 120000
                         )
                     ], 
