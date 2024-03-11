@@ -32,27 +32,27 @@ pipeline
                   sh 'mvn clean package'
               }
           }
-          //stage("Sonar Quality Check")
-          //{
-          //steps
-          //    {
-          //        script
-          //            {
-          //                withSonarQubeEnv(installationName: '10.4.0-community', credentialsId: 'sonarqube-jenkins-token') 
-          //                {
-          //                    sh 'mvn sonar:sonar'
-          //                }
-          //                timeout(time: 1, unit: 'HOURS') 
-          //                {
-          //                        def qg = waitForQualityGate()
-          //                        if (qg.status != 'OK') 
-          //                            {
-          //                                error "Pipeline aborted due to quality gate failure: ${qg.status}"
-          //                            }
-          //                }
-          //            }
-          //        }
-          //}
+          stage("Sonar Quality Check")
+          {
+          steps
+              {
+                  script
+                      {
+                          withSonarQubeEnv(installationName: '10.4.0-community', credentialsId: 'sonarqube-jenkins-token') 
+                          {
+                              sh 'mvn sonar:sonar'
+                          }
+                          timeout(time: 1, unit: 'HOURS') 
+                          {
+                                  def qg = waitForQualityGate()
+                                  if (qg.status != 'OK') 
+                                      {
+                                          error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                                      }
+                          }
+                      }
+                  }
+          }
         
         // Print some information
         stage ('Print Environment variables')
@@ -91,8 +91,8 @@ pipeline
             }
         }
 
-        // Deploying the build artifact to Apache Tomcat
-        stage ('Deploy to Tomcat')
+        // Deploying the build artifact to Apache Docker
+        stage ('Deploy to Docker')
         {
             steps 
             {
@@ -106,7 +106,7 @@ pipeline
                         sshTransfer
                         (
                                 cleanRemote:false,
-                                execCommand: 'ansible-playbook /opt/playbooks/downloadanddeploy_as_tomcat_user.yaml -i /opt/playbooks/hosts ',
+                                execCommand: 'ansible-playbook /opt/playbooks/downloadanddeploy_docker.yaml -i /opt/playbooks/hosts ',
                                 execTimeout: 120000
                         )
                     ], 
@@ -114,7 +114,7 @@ pipeline
                     useWorkspaceInPromotion: false, 
                     verbose: false
                 )
-                    ])
+                ])
             
             }
         }
