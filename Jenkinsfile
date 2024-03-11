@@ -64,7 +64,7 @@ pipeline
                 echo "GroupID is '${GroupId}'"
                 echo "Name is '${Name}'"
             }
-        }
+        } 
 
         // Publish the artifacts to Nexus
         stage ('Publish to Nexus')
